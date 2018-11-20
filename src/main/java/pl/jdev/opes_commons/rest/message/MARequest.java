@@ -9,9 +9,8 @@ import java.util.Collection;
 
 @Getter
 @AllArgsConstructor(onConstructor = @__({@JsonCreator}))
-//@RequiredArgsConstructor
-public class SMARequest implements DataRequest {
+public class MARequest implements DataRequest {
     private final Collection<Candlestick> candles;
-    private int numOfSMAs;
-    private int numOfTimePeriods;
+    private int amtOfIndics;
+    private int amtOfPeriods;
 }
