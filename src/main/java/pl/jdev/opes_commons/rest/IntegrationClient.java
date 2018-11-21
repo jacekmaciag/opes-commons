@@ -1,6 +1,7 @@
 package pl.jdev.opes_commons.rest;
 
 import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -23,7 +24,7 @@ public class IntegrationClient extends HttpService {
         this.integrationHost = integrationHostUrl;
     }
 
-    public Map requestData(final DataRequest dataRequest, final Map<HttpHeaders, String> headers) {
+    public ResponseEntity requestData(final DataRequest dataRequest, final Map<HttpHeaders, String> headers) {
         MultiValueMap<String, String> stringHeaders = new LinkedMultiValueMap<>();
         headers.forEach((key, value) -> stringHeaders.add(key.toString(), value));
         return requireNonNull(this.restTemplate
@@ -35,8 +36,7 @@ public class IntegrationClient extends HttpService {
                                 .toString(),
                         POST,
                         new HttpEntity<>(dataRequest, stringHeaders),
-                        Map.class)
-                .getBody());
+                        ResponseEntity.class));
     }
 
     public void postEvent(final Event event, final Map<HttpHeaders, String> headers) {
