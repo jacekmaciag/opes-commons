@@ -8,7 +8,6 @@ import java.util.Map;
 
 @Getter
 @AllArgsConstructor(onConstructor = @__({@JsonCreator}))
-public class PricingEvent implements Event {
-    private String timestamp;
+public class PricingEvent extends AbstractEvent{
     private Map<String, Double> instrumentPrice;
 }
