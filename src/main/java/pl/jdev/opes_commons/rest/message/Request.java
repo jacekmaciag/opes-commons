@@ -1,4 +1,4 @@
 package pl.jdev.opes_commons.rest.message;
 
-public class OrderTriggerEvent {
+public interface Request {
 }

@@ -1,4 +1,4 @@
 package pl.jdev.opes_commons.rest.message;
 
-public interface DataRequest {
+public interface DataRequest extends Request {
 }
