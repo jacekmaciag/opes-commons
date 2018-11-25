@@ -6,6 +6,7 @@ import org.springframework.util.StringUtils;
 public class HttpHeaders extends org.springframework.http.HttpHeaders {
     public static final String DATA_TYPE = "Data-Type";
     public static final String EVENT_TYPE = "Event-Type";
+    public static final String ACTION_TYPE = "Event-Type";
 
     public void setDataType(@Nullable String dataType) {
         if (dataType != null) {
@@ -32,6 +33,20 @@ public class HttpHeaders extends org.springframework.http.HttpHeaders {
     @Nullable
     public String getEventType() {
         String value = getFirst(EVENT_TYPE);
+        return (StringUtils.hasLength(value) ? value : null);
+    }
+
+    public void setActionType(@Nullable String actionType) {
+        if (actionType != null) {
+            set(ACTION_TYPE, actionType);
+        } else {
+            set(ACTION_TYPE, null);
+        }
+    }
+
+    @Nullable
+    public String getActionType() {
+        String value = getFirst(ACTION_TYPE);
         return (StringUtils.hasLength(value) ? value : null);
     }
 }
