@@ -5,7 +5,6 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
 
 import java.io.IOException;
@@ -24,20 +23,20 @@ public class RestLoggingInterceptor implements ClientHttpRequestInterceptor {
     }
 
     private synchronized void logRequest(HttpRequest request, byte[] body) {
-        log.info("======================REQUEST BEGIN======================");
-        log.info(format("URI         : %s", request.getURI()));
-        log.info(format("Method      : %s", request.getMethod()));
-        log.info(format("Headers     : %s", request.getHeaders().toSingleValueMap()));
-        log.info(format("Request Body: %s", new String(body)));
-        log.info("======================REQUEST END========================");
+        log.info("======================REQUEST BEGIN======================\n"
+                + format("URI         : %s\n", request.getURI())
+                + format("Method      : %s\n", request.getMethod())
+                + format("Headers     : %s\n", request.getHeaders().toSingleValueMap())
+                + format("Request Body: %s\n", new String(body))
+                + "======================REQUEST END========================");
     }
 
     private synchronized void logResponse(ClientHttpResponse response) throws IOException {
-        log.info("======================RESPONSE BEGIN=====================");
-        log.info(format("Status Code  : %s", response.getStatusCode()));
-        log.info(format("Status Text  : %s", response.getStatusText()));
-        log.info(format("Headers      : %s", response.getHeaders().toSingleValueMap()));
-        log.info(format("Response Body: %s", StreamUtils.copyToString(response.getBody(), Charset.defaultCharset())));
-        log.info("======================RESPONSE END=======================");
+        log.info("======================RESPONSE BEGIN=====================\n"
+                + format("Status Code  : %s\n", response.getStatusCode())
+                + format("Status Text  : %s\n", response.getStatusText())
+                + format("Headers      : %s\n", response.getHeaders().toSingleValueMap())
+                + format("Response Body: %s\n", StreamUtils.copyToString(response.getBody(), Charset.defaultCharset()))
+                + "======================RESPONSE END=======================");
     }
 }
