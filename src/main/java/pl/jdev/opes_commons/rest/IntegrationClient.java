@@ -4,7 +4,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import pl.jdev.opes_commons.rest.message.ActionRequest;
+import pl.jdev.opes_commons.rest.message.Action;
 import pl.jdev.opes_commons.rest.message.DataRequest;
 import pl.jdev.opes_commons.rest.message.Event;
 
@@ -35,7 +35,7 @@ public class IntegrationClient extends HttpService {
                         responseType);
     }
 
-    public ResponseEntity perform(final ActionRequest action, final HttpHeaders headers) {
+    public ResponseEntity perform(final Action action, final HttpHeaders headers) {
         return this.restTemplate
                 .exchange(UriComponentsBuilder.newInstance()
                                 .scheme(ReferenceUriSchemesSupported.HTTP.toString())
