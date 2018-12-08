@@ -1,4 +1,6 @@
 package pl.jdev.opes_commons.rest.message;
 
-public interface Request {
+import java.io.Serializable;
+
+interface Request extends Serializable {
 }

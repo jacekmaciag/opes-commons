@@ -11,7 +11,6 @@ import pl.jdev.opes_commons.rest.message.Event;
 import javax.print.attribute.standard.ReferenceUriSchemesSupported;
 import java.util.Map;
 
-import static java.util.Objects.requireNonNull;
 import static org.springframework.http.HttpMethod.POST;
 
 public class IntegrationClient extends HttpService {
@@ -23,8 +22,8 @@ public class IntegrationClient extends HttpService {
         this.integrationHost = integrationHostUrl;
     }
 
-    public ResponseEntity requestData(final DataRequest dataRequest, final HttpHeaders headers) {
-        return requireNonNull(this.restTemplate
+    public ResponseEntity requestData(final DataRequest dataRequest, final HttpHeaders headers, final Class responseType) {
+        return this.restTemplate
                 .exchange(UriComponentsBuilder.newInstance()
                                 .scheme(ReferenceUriSchemesSupported.HTTP.toString())
                                 .host(integrationHost)
@@ -33,7 +32,7 @@ public class IntegrationClient extends HttpService {
                                 .toString(),
                         POST,
                         new HttpEntity<>(dataRequest, headers),
-                        ResponseEntity.class));
+                        responseType);
     }
 
     public ResponseEntity perform(final ActionRequest action, final HttpHeaders headers) {
@@ -46,8 +45,7 @@ public class IntegrationClient extends HttpService {
                                 .toString(),
                         POST,
                         new HttpEntity<>(action, headers),
-                        ResponseEntity.class
-                );
+                        ResponseEntity.class);
     }
 
     public void postEvent(final Event event, final HttpHeaders headers) {
