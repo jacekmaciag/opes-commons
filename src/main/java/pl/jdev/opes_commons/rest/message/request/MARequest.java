@@ -1,4 +1,4 @@
-package pl.jdev.opes_commons.rest.message;
+package pl.jdev.opes_commons.rest.message.request;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;

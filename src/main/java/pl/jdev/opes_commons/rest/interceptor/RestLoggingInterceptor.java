@@ -23,7 +23,8 @@ public class RestLoggingInterceptor implements ClientHttpRequestInterceptor {
     }
 
     private synchronized void logRequest(HttpRequest request, byte[] body) {
-        log.info("======================REQUEST BEGIN======================\n"
+        log.info("Request\n"
+                + "======================REQUEST BEGIN======================\n"
                 + format("URI         : %s\n", request.getURI())
                 + format("Method      : %s\n", request.getMethod())
                 + format("Headers     : %s\n", request.getHeaders().toSingleValueMap())
@@ -32,7 +33,8 @@ public class RestLoggingInterceptor implements ClientHttpRequestInterceptor {
     }
 
     private synchronized void logResponse(ClientHttpResponse response) throws IOException {
-        log.info("======================RESPONSE BEGIN=====================\n"
+        log.info("Response\n"
+                + "======================RESPONSE BEGIN=====================\n"
                 + format("Status Code  : %s\n", response.getStatusCode())
                 + format("Status Text  : %s\n", response.getStatusText())
                 + format("Headers      : %s\n", response.getHeaders().toSingleValueMap())

@@ -1,12 +1,12 @@
-package pl.jdev.opes_commons.rest.wrapper;
+package pl.jdev.opes_commons.rest.message.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import pl.jdev.opes_commons.domain.trade.Trade;
+import pl.jdev.opes_commons.domain.order.Order;
 
 @Data
 @AllArgsConstructor(staticName = "payloadOf", onConstructor = @__({@JsonCreator}))
-public class JsonTradeWrapper {
-    private Trade trade;
+public class JsonOrderWrapper {
+    private Order order;
 }

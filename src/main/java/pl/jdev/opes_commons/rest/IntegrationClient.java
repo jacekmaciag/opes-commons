@@ -5,11 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import pl.jdev.opes_commons.rest.message.Action;
-import pl.jdev.opes_commons.rest.message.DataRequest;
-import pl.jdev.opes_commons.rest.message.Event;
+import pl.jdev.opes_commons.rest.message.request.DataRequest;
+import pl.jdev.opes_commons.rest.message.event.Event;
 
 import javax.print.attribute.standard.ReferenceUriSchemesSupported;
-import java.util.Map;
 
 import static org.springframework.http.HttpMethod.POST;
 
@@ -48,8 +47,8 @@ public class IntegrationClient extends HttpService {
                         ResponseEntity.class);
     }
 
-    public void postEvent(final Event event, final HttpHeaders headers) {
-        this.restTemplate.exchange(UriComponentsBuilder.newInstance()
+    public ResponseEntity postEvent(final Event event, final HttpHeaders headers) {
+        return this.restTemplate.exchange(UriComponentsBuilder.newInstance()
                         .scheme(ReferenceUriSchemesSupported.HTTP.toString())
                         .host(integrationHost)
                         .path("/event")
@@ -57,6 +56,6 @@ public class IntegrationClient extends HttpService {
                         .toString(),
                 POST,
                 new HttpEntity<>(event, headers),
-                Map.class);
+                ResponseEntity.class);
     }
 }

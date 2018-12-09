@@ -1,13 +1,12 @@
-package pl.jdev.opes_commons.rest.wrapper;
+package pl.jdev.opes_commons.rest.message.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.Map;
+import pl.jdev.opes_commons.domain.transaction.Transaction;
 
 @Data
 @AllArgsConstructor(staticName = "payloadOf", onConstructor = @__({@JsonCreator}))
-public class JsonEMAWrapper {
-    private Map<String, Double> ema;
+public class JsonTransactionWrapper {
+    private Transaction transaction;
 }

@@ -1,4 +1,4 @@
-package pl.jdev.opes_commons.rest.message;
+package pl.jdev.opes_commons.rest.message.event;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
@@ -8,6 +8,6 @@ import java.util.Map;
 
 @Getter
 @AllArgsConstructor(onConstructor = @__({@JsonCreator}))
-public class PricingEvent extends AbstractEvent{
+public class PricingEvent implements Event {
     private Map<String, Double> instrumentPrice;
 }

@@ -1,4 +1,4 @@
-package pl.jdev.opes_commons.rest.wrapper;
+package pl.jdev.opes_commons.rest.message.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
@@ -8,6 +8,6 @@ import java.util.Map;
 
 @Data
 @AllArgsConstructor(staticName = "payloadOf", onConstructor = @__({@JsonCreator}))
-public class JsonSMAListWrapper {
-    private Map<String, Double> smas;
+public class JsonSMAWrapper {
+    private Map<String, Double> sma;
 }

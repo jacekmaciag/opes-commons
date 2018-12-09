@@ -1,14 +1,16 @@
-package pl.jdev.opes_commons.rest.wrapper;
+package pl.jdev.opes_commons.rest.message.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import pl.jdev.opes_commons.domain.transaction.Transaction;
+import pl.jdev.opes_commons.domain.pricing.Price;
 
 import java.util.Collection;
 
 @Data
 @AllArgsConstructor(staticName = "payloadOf", onConstructor = @__({@JsonCreator}))
-public class JsonTransactionListWrapper {
-    private Collection<Transaction> transactions;
+public class JsonPricingListWrapper {
+//    @JsonIgnore
+//    private String time;
+    private Collection<Price> prices;
 }
