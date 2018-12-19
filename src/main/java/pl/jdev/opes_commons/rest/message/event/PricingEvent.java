@@ -9,5 +9,6 @@ import java.util.Map;
 @Getter
 @AllArgsConstructor(onConstructor = @__({@JsonCreator}))
 public class PricingEvent implements Event {
+    private String instrument;
     private Map<String, Double> instrumentPrice;
 }

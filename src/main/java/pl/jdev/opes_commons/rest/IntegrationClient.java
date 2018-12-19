@@ -5,10 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import pl.jdev.opes_commons.rest.message.Action;
-import pl.jdev.opes_commons.rest.message.request.DataRequest;
 import pl.jdev.opes_commons.rest.message.event.Event;
+import pl.jdev.opes_commons.rest.message.request.DataRequest;
 
 import javax.print.attribute.standard.ReferenceUriSchemesSupported;
+import java.io.Serializable;
 
 import static org.springframework.http.HttpMethod.POST;
 
@@ -22,40 +23,28 @@ public class IntegrationClient extends HttpService {
     }
 
     public ResponseEntity requestData(final DataRequest dataRequest, final HttpHeaders headers, final Class responseType) {
-        return this.restTemplate
-                .exchange(UriComponentsBuilder.newInstance()
-                                .scheme(ReferenceUriSchemesSupported.HTTP.toString())
-                                .host(integrationHost)
-                                .path("/data")
-                                .build()
-                                .toString(),
-                        POST,
-                        new HttpEntity<>(dataRequest, headers),
-                        responseType);
+        return post("/data", dataRequest, headers, responseType);
     }
 
     public ResponseEntity perform(final Action action, final HttpHeaders headers) {
+        return post("/action", action, headers, ResponseEntity.class);
+    }
+
+
+    public ResponseEntity postEvent(final Event event, final HttpHeaders headers) {
+        return post("/event", event, headers, ResponseEntity.class);
+    }
+
+    private ResponseEntity post(String endpoint, Serializable message, HttpHeaders headers, Class responseType) {
         return this.restTemplate
                 .exchange(UriComponentsBuilder.newInstance()
                                 .scheme(ReferenceUriSchemesSupported.HTTP.toString())
                                 .host(integrationHost)
-                                .path("/action")
+                                .path(endpoint)
                                 .build()
                                 .toString(),
                         POST,
-                        new HttpEntity<>(action, headers),
-                        ResponseEntity.class);
-    }
-
-    public ResponseEntity postEvent(final Event event, final HttpHeaders headers) {
-        return this.restTemplate.exchange(UriComponentsBuilder.newInstance()
-                        .scheme(ReferenceUriSchemesSupported.HTTP.toString())
-                        .host(integrationHost)
-                        .path("/event")
-                        .build()
-                        .toString(),
-                POST,
-                new HttpEntity<>(event, headers),
-                ResponseEntity.class);
+                        new HttpEntity<>(message, headers),
+                        responseType);
     }
 }
