@@ -1,10 +1,9 @@
 package pl.jdev.opes_commons.domain.instrument;
 
 import lombok.Data;
-import pl.jdev.opes_commons.domain.AbstractEntity;
 
 @Data
-public class Instrument extends AbstractEntity {
+public class Instrument {
 
     enum InstrumentType {
         CURRENCY, CFD, METAL

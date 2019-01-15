@@ -4,12 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.TypeAlias;
-import pl.jdev.opes_commons.domain.AbstractEntity;
 
 @Data
 @Builder
 @TypeAlias("transaction")
-public class Transaction extends AbstractEntity {
+public class Transaction {
     @JsonProperty("id")
     private String transactionId;
     private String time;

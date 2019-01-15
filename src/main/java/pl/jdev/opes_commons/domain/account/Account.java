@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.TypeAlias;
-import pl.jdev.opes_commons.domain.AbstractEntity;
 
 import java.util.Currency;
 import java.util.Date;
@@ -12,7 +11,7 @@ import java.util.Date;
 @Data
 @Builder
 @TypeAlias("account")
-public class Account extends AbstractEntity {
+public class Account {
     @JsonProperty("id")
     private String accountId;
     private String alias;

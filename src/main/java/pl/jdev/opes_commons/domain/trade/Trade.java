@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.TypeAlias;
-import pl.jdev.opes_commons.domain.AbstractEntity;
 import pl.jdev.opes_commons.domain.ClientExtensions;
 
 import java.util.Date;
@@ -13,7 +12,7 @@ import java.util.List;
 @Data
 @Builder
 @TypeAlias("trade")
-public class Trade extends AbstractEntity {
+public class Trade {
 
     public enum TradeState {
         OPEN, CLOSED, CLOSE_WHEN_TRADEABLE;
