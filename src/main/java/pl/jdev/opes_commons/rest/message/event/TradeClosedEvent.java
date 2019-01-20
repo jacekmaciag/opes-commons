@@ -1,4 +1,4 @@
 package pl.jdev.opes_commons.rest.message.event;
 
-public class TradeClosedEvent implements Event {
+public class TradeClosedEvent implements DomainEvent {
 }

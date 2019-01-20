@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Getter
 @AllArgsConstructor(onConstructor = @__({@JsonCreator}))
-public class PricingEvent implements Event {
+public class PricingEvent implements DomainEvent {
     private String instrument;
     private Map<String, Double> instrumentPrice;
 }
