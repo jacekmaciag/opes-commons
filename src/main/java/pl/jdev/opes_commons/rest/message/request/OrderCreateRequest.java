@@ -7,6 +7,6 @@ import pl.jdev.opes_commons.domain.order.Order;
 
 @Getter
 @AllArgsConstructor(onConstructor = @__({@JsonCreator}))
-public class CreateOrderRequest {
+public class OrderCreateRequest {
     private Order order;
 }
