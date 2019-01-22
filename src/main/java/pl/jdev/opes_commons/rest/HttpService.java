@@ -10,4 +10,5 @@ public abstract class HttpService {
     public HttpService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
+
 }
