@@ -4,6 +4,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import pl.jdev.opes_commons.domain.account.Account;
 import pl.jdev.opes_commons.rest.message.Action;
 import pl.jdev.opes_commons.rest.message.event.Event;
 import pl.jdev.opes_commons.rest.message.request.DataRequest;
