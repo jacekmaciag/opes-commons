@@ -4,11 +4,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.UUID;
+
+@Deprecated
 @Getter
 @AllArgsConstructor(onConstructor = @__({@JsonCreator}))
 public class CancelOrderAction implements Action {
-    private String accountId;
+    private UUID accountId;
     private String extAccountId;
-    private String orderId;
+    private UUID orderId;
     private String extOrderId;
 }

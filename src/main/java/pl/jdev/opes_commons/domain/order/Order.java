@@ -1,18 +1,32 @@
 package pl.jdev.opes_commons.domain.order;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
-import org.springframework.data.annotation.TypeAlias;
-import pl.jdev.opes_commons.domain.ClientExtensions;
+import pl.jdev.opes_commons.domain.instrument.Instrument;
+import pl.jdev.opes_commons.rest.json.OrderViews;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 @Data
-@AllArgsConstructor
-@TypeAlias("order")
-public abstract class Order {
-    private String orderId;
-    private Date createTime;
+//@JsonRootName("order")
+public class Order implements Serializable {
+    private UUID id;
+    private String extId;
+    @JsonView(OrderViews.CoreCreate.class)
+    private UUID accountId;
     private OrderState state;
-    private ClientExtensions clientExtensions;
+    @JsonView({OrderViews.CoreCreate.class,
+            OrderViews.OandaCreate.class})
+    private OrderType type;
+    @JsonView({OrderViews.CoreCreate.class,
+            OrderViews.OandaCreate.class})
+    private Double units;
+    @JsonView({OrderViews.CoreCreate.class,
+            OrderViews.OandaCreate.class})
+    private Instrument instrument;
+    private List<String> comments;
+    private Set<String> tags;
 }

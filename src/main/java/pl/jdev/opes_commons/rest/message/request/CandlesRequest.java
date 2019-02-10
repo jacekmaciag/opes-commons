@@ -8,7 +8,7 @@ import pl.jdev.opes_commons.domain.instrument.CandlestickPriceType;
 
 @Getter
 @AllArgsConstructor(onConstructor = @__({@JsonCreator}))
-public class CandlesRequest implements DataRequest {
+public class CandlesRequest {
     private String instrument;
     private CandlestickPriceType priceType;
     private CandlestickGranularity granularity;

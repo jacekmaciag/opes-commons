@@ -6,7 +6,7 @@ import org.springframework.util.StringUtils;
 public class HttpHeaders extends org.springframework.http.HttpHeaders {
     public static final String DATA_TYPE = "Data-Type";
     public static final String EVENT_TYPE = "Event-Type";
-    public static final String ACTION_TYPE = "Event-Type";
+    public static final String ACTION_TYPE = "Action-Type";
     public static final String SOURCE = "Source";
 
     public void setDataType(@Nullable String dataType) {

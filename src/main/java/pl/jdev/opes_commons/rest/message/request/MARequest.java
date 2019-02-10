@@ -9,7 +9,7 @@ import java.util.Collection;
 
 @Getter
 @AllArgsConstructor(onConstructor = @__({@JsonCreator}))
-public class MARequest implements DataRequest {
+public class MARequest {
     private final Collection<Candlestick> candles;
     private int amtOfIndics;
     private int amtOfPeriods;

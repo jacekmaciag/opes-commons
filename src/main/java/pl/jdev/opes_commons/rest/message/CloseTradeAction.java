@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.UUID;
+
 @Getter
 @AllArgsConstructor(onConstructor = @__({@JsonCreator}))
 public class CloseTradeAction implements Action {
-    private String accountId;
+    private UUID accountId;
     private String extAccountId;
-    private String tradeId;
+    private UUID tradeId;
     private String extTradeId;
 }

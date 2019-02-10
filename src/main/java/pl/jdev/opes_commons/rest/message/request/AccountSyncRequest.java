@@ -1,12 +1,20 @@
 package pl.jdev.opes_commons.rest.message.request;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import org.springframework.messaging.MessageHeaders;
 
-@Getter
-@AllArgsConstructor(onConstructor = @__({@JsonCreator}))
-public class AccountSyncRequest {
-    private String extId;
-    private String source;
+import java.util.Map;
+
+public class AccountSyncRequest extends Request<String> {
+
+    public AccountSyncRequest(String payload) {
+        super(payload);
+    }
+
+    public AccountSyncRequest(String payload, Map headers) {
+        super(payload, headers);
+    }
+
+    public AccountSyncRequest(String payload, MessageHeaders headers) {
+        super(payload, headers);
+    }
 }

@@ -1,16 +1,15 @@
 package pl.jdev.opes_commons.rest;
 
 import org.springframework.http.HttpEntity;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageHeaders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import pl.jdev.opes_commons.domain.account.Account;
-import pl.jdev.opes_commons.rest.message.Action;
-import pl.jdev.opes_commons.rest.message.event.Event;
-import pl.jdev.opes_commons.rest.message.request.DataRequest;
 
 import javax.print.attribute.standard.ReferenceUriSchemesSupported;
-import java.io.Serializable;
+import java.util.List;
 
 import static org.springframework.http.HttpMethod.POST;
 
@@ -23,20 +22,23 @@ public class IntegrationClient extends HttpService {
         this.integrationHost = integrationHostUrl;
     }
 
-    public ResponseEntity requestData(final DataRequest dataRequest, final HttpHeaders headers, final Class responseType) {
-        return post("/data", dataRequest, headers, responseType);
+    public ResponseEntity requestData(final Message dataRequest, final Class responseType) {
+        return post("/data", dataRequest, responseType);
     }
 
-    public ResponseEntity perform(final Action action, final HttpHeaders headers) {
-        return post("/action", action, headers, ResponseEntity.class);
+    public ResponseEntity perform(final Message request) {
+        return post("/action", request, ResponseEntity.class);
     }
 
 
-    public ResponseEntity postEvent(final Event event, final HttpHeaders headers) {
-        return post("/event", event, headers, ResponseEntity.class);
+    public ResponseEntity postEvent(final Message event) {
+        return post("/event", event, ResponseEntity.class);
     }
 
-    private ResponseEntity post(String endpoint, Serializable message, HttpHeaders headers, Class responseType) {
+    private ResponseEntity post(String endpoint, Message message, Class responseType) {
+        HttpHeaders headers = convertToHttpHeaders(message.getHeaders());
+        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON_UTF8));
         return this.restTemplate
                 .exchange(UriComponentsBuilder.newInstance()
                                 .scheme(ReferenceUriSchemesSupported.HTTP.toString())
@@ -45,7 +47,13 @@ public class IntegrationClient extends HttpService {
                                 .build()
                                 .toString(),
                         POST,
-                        new HttpEntity<>(message, headers),
+                        new HttpEntity<>(message.getPayload(), headers),
                         responseType);
+    }
+
+    private HttpHeaders convertToHttpHeaders(MessageHeaders headers) {
+        HttpHeaders result = new HttpHeaders();
+        headers.forEach((key, value) -> result.set(key, value.toString()));
+        return result;
     }
 }

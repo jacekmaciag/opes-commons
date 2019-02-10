@@ -8,6 +8,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor(onConstructor = @__({@JsonCreator}))
 @JsonRootName("indicatorEvent")
-public class IndicatorEvent implements Event {
+public class IndicatorEvent  {
     private String boop;
 }

@@ -1,15 +1,17 @@
 package pl.jdev.opes_commons.domain.order.types.market_order;
 
-import lombok.Builder;
 import lombok.Data;
 import pl.jdev.opes_commons.domain.ClientExtensions;
-import pl.jdev.opes_commons.domain.order.*;
+import pl.jdev.opes_commons.domain.order.FillingOrderDetails;
+import pl.jdev.opes_commons.domain.order.OrderPositionFill;
+import pl.jdev.opes_commons.domain.order.OrderType;
+import pl.jdev.opes_commons.domain.order.TimeInForce;
 
 import java.util.Date;
 import java.util.List;
 
 @Data
-public class MarketOrder extends Order {
+public class MarketOrder {
     private OrderType type;
     private String instrument;
     private String units;
@@ -33,78 +35,4 @@ public class MarketOrder extends Order {
     private String cancellingTransactionID;
     private Date cancelledTime;
 
-    @Builder
-    public MarketOrder(String id,
-                       Date createTime,
-                       OrderState state,
-                       ClientExtensions clientExtensions,
-                       String instrument,
-                       String units,
-                       TimeInForce timeInForce,
-                       String priceBound,
-                       OrderPositionFill positionFill,
-                       MarketOrderTradeClose tradeClose,
-                       MarketOrderPositionCloseout longPositionCloseout,
-                       MarketOrderPositionCloseout shortPositionCloseout,
-                       MarketOrderMarginCloseout marginCloseout,
-                       MarketOrderDelayedTradeClose delayedTradeClose,
-                       FillingOrderDetails takeProfitOnFill,
-                       FillingOrderDetails stopLossOnFill,
-                       FillingOrderDetails trailingStopLossOnFill,
-                       ClientExtensions tradeClientExtensions,
-                       String fillingTransactionID,
-                       Date filledTime,
-                       String tradeOpenedID,
-                       String tradeReducedID,
-                       List<String> tradeClosedIDs,
-                       String cancellingTransactionID,
-                       Date cancelledTime) {
-        super(id, createTime, state, clientExtensions);
-        this.type = OrderType.MARKET;
-        this.instrument = instrument;
-        this.units = units;
-        this.timeInForce = timeInForce;
-        this.priceBound = priceBound;
-        this.positionFill = positionFill;
-        this.tradeClose = tradeClose;
-        this.longPositionCloseout = longPositionCloseout;
-        this.shortPositionCloseout = shortPositionCloseout;
-        this.marginCloseout = marginCloseout;
-        this.delayedTradeClose = delayedTradeClose;
-        this.takeProfitOnFill = takeProfitOnFill;
-        this.stopLossOnFill = stopLossOnFill;
-        this.trailingStopLossOnFill = trailingStopLossOnFill;
-        this.tradeClientExtensions = tradeClientExtensions;
-        this.fillingTransactionID = fillingTransactionID;
-        this.filledTime = filledTime;
-        this.tradeOpenedID = tradeOpenedID;
-        this.tradeReducedID = tradeReducedID;
-        this.tradeClosedIDs = tradeClosedIDs;
-        this.cancellingTransactionID = cancellingTransactionID;
-        this.cancelledTime = cancelledTime;
-    }
-
-    @Builder(builderMethodName = "requestBuilder")
-    public MarketOrder(ClientExtensions clientExtensions,
-                       String instrument,
-                       String units,
-                       TimeInForce timeInForce,
-                       String priceBound,
-                       OrderPositionFill positionFill,
-                       FillingOrderDetails takeProfitOnFill,
-                       FillingOrderDetails stopLossOnFill,
-                       FillingOrderDetails trailingStopLossOnFill,
-                       ClientExtensions tradeClientExtensions) {
-        super(null, null, null, clientExtensions);
-        this.type = OrderType.MARKET;
-        this.instrument = instrument;
-        this.units = units;
-        this.timeInForce = timeInForce;
-        this.priceBound = priceBound;
-        this.positionFill = positionFill;
-        this.takeProfitOnFill = takeProfitOnFill;
-        this.stopLossOnFill = stopLossOnFill;
-        this.trailingStopLossOnFill = trailingStopLossOnFill;
-        this.tradeClientExtensions = tradeClientExtensions;
-    }
 }

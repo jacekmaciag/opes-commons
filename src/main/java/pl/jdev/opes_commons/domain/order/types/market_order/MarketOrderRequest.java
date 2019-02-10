@@ -9,9 +9,10 @@ import pl.jdev.opes_commons.validation.SupportedTimeInForce;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import java.io.Serializable;
 
 @Data
-public class MarketOrderRequest extends OrderRequest {
+public class MarketOrderRequest implements Serializable {
     @SupportedOrderType
     @NotNull
     private OrderType type;
