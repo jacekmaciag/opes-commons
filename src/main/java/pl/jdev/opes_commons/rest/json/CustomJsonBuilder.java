@@ -7,13 +7,11 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CustomJsonBuilder {
     private ObjectMapper mapper;
@@ -32,22 +30,27 @@ public class CustomJsonBuilder {
         return this;
     }
 
+    private class EmptyObject {
+    }
+
     public CustomJsonBuilder add(String attribure, Object withValue) {
         return replace(attribure, withValue);
     }
 
     public CustomJsonBuilder replace(String attribute, Object withValue) {
-//        mapper.configure(MapperFeature.ALLOW_FINAL_FIELDS_AS_MUTATORS, true);
-//        mapper.configure(MapperFeature.INFER_PROPERTY_MUTATORS, true);
         extraAttributes.put(attribute, withValue);
-        extraAttributes.put("test", "Test");
         return this;
     }
 
+    public String build() throws IOException {
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        return this.buildForObject(new EmptyObject());
+    }
+
     public String buildForObject(Object object) throws IOException {
-        System.out.println(views.toArray());
-        System.out.println(extraAttributes.toString());
-        System.out.println(mapper.isEnabled(MapperFeature.DEFAULT_VIEW_INCLUSION));
+        System.out.println(String.format("Attempting to write object to JSON:\n%s", object.toString()));
+        System.out.println(String.format("Using views:\n%s", views));
+        System.out.println(String.format("Replacing properties with values:\n%s", extraAttributes));
         ObjectWriter writer = mapper.writerFor(object.getClass());
         for (Class view : views) {
             writer = writer.withView(view);
@@ -64,45 +67,44 @@ public class CustomJsonBuilder {
         JsonParser parser = jFactory.createParser(json);
         JsonToken currToken = null;
         currToken = parser.nextToken();
-        System.out.println("currToken: " + currToken);
+//        System.out.println("currToken: " + currToken);
 
         while (parser.nextToken() != JsonToken.END_OBJECT) {
             currToken = parser.currentToken();
-            System.out.println("currToken: " + currToken);
+//            System.out.println("currToken: " + currToken);
             String currFieldName = parser.currentName();
-            System.out.println("currField: " + currFieldName);
+//            System.out.println("currField: " + currFieldName);
 
-            if (currToken == JsonToken.FIELD_NAME && extraAttributes.keySet().contains(currFieldName)) {
-                System.out.println("add repl");
-                gen.writeStringField(currFieldName, extraAttributes.get(currFieldName).toString());
-                extraAttributes.remove(currFieldName);
-            } else if (currToken == JsonToken.VALUE_NUMBER_FLOAT) {
-                System.out.println("add foatl");
-                gen.writeNumberField(currFieldName, parser.getFloatValue());
-            } else if (currToken == JsonToken.VALUE_NUMBER_INT) {
-                System.out.println("add int");
-                gen.writeNumberField(currFieldName, parser.getIntValue());
-            } else if (currToken == JsonToken.VALUE_TRUE) {
-                System.out.println("add true");
-                gen.writeBooleanField(currFieldName, true);
-            } else if (currToken == JsonToken.VALUE_FALSE) {
-                System.out.println("add false");
-                gen.writeBooleanField(currFieldName, false);
-            } else if (currToken == JsonToken.VALUE_STRING) {
-                gen.writeStringField(currFieldName, parser.getValueAsString());
-            } else if (currToken == JsonToken.VALUE_NULL) {
-                System.out.println("add null");
-                gen.writeNullField(currFieldName);
-            } else if (!currToken.isScalarValue()) {
-                System.out.println("add nonscal");
-                gen.copyCurrentStructure(parser);
+            Set<String> extraAttrNames = extraAttributes.keySet();
+            if (!extraAttrNames.contains(currFieldName)) {
+                if (currToken == JsonToken.VALUE_NUMBER_FLOAT) {
+//                System.out.println("add foatl");
+                    gen.writeNumberField(currFieldName, parser.getFloatValue());
+                } else if (currToken == JsonToken.VALUE_NUMBER_INT) {
+//                System.out.println("add int");
+                    gen.writeNumberField(currFieldName, parser.getIntValue());
+                } else if (currToken == JsonToken.VALUE_TRUE) {
+//                System.out.println("add true");
+                    gen.writeBooleanField(currFieldName, true);
+                } else if (currToken == JsonToken.VALUE_FALSE) {
+//                System.out.println("add false");
+                    gen.writeBooleanField(currFieldName, false);
+                } else if (currToken == JsonToken.VALUE_STRING) {
+                    gen.writeStringField(currFieldName, parser.getValueAsString());
+                } else if (currToken == JsonToken.VALUE_NULL) {
+//                System.out.println("add null");
+                    gen.writeNullField(currFieldName);
+                } else if (!currToken.isScalarValue()) {
+//                System.out.println("add nonscal");
+                    gen.copyCurrentStructure(parser);
+                }
             }
 //            else if (currToken == JsonToken.START_OBJECT) {
 //                gen.writeObjectFieldStart(currFieldName);
 //            } else if (currToken == JsonToken.END_OBJECT) {
 //                gen.writeEndObject();
 //            }
-            System.out.println("---\n" + wr.toString());
+//            System.out.println("---\n" + wr.toString());
         }
         extraAttributes.forEach((attr, val) -> {
             try {
@@ -115,7 +117,7 @@ public class CustomJsonBuilder {
         gen.close();
         wr.close();
         String value = wr.toString();
-        System.out.println(value);
+        System.out.println(String.format("Built JSON:\n%s", value));
         return value;
     }
 }

@@ -4,22 +4,21 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 
 public class HttpHeaders extends org.springframework.http.HttpHeaders {
-    public static final String DATA_TYPE = "Data-Type";
+    public static final String REQUEST_TYPE = "Request-Type";
     public static final String EVENT_TYPE = "Event-Type";
-    public static final String ACTION_TYPE = "Action-Type";
     public static final String SOURCE = "Source";
 
-    public void setDataType(@Nullable String dataType) {
-        if (dataType != null) {
-            set(DATA_TYPE, dataType);
+    public void setRequestType(@Nullable String requestType) {
+        if (requestType != null) {
+            set(REQUEST_TYPE, requestType);
         } else {
-            set(DATA_TYPE, null);
+            set(REQUEST_TYPE, null);
         }
     }
 
     @Nullable
-    public String getDataType() {
-        String value = getFirst(DATA_TYPE);
+    public String getRequestType() {
+        String value = getFirst(REQUEST_TYPE);
         return (StringUtils.hasLength(value) ? value : null);
     }
 
@@ -34,20 +33,6 @@ public class HttpHeaders extends org.springframework.http.HttpHeaders {
     @Nullable
     public String getEventType() {
         String value = getFirst(EVENT_TYPE);
-        return (StringUtils.hasLength(value) ? value : null);
-    }
-
-    public void setActionType(@Nullable String actionType) {
-        if (actionType != null) {
-            set(ACTION_TYPE, actionType);
-        } else {
-            set(ACTION_TYPE, null);
-        }
-    }
-
-    @Nullable
-    public String getActionType() {
-        String value = getFirst(ACTION_TYPE);
         return (StringUtils.hasLength(value) ? value : null);
     }
 

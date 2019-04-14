@@ -22,20 +22,20 @@ public class IntegrationClient extends HttpService {
         this.integrationHost = integrationHostUrl;
     }
 
-    public ResponseEntity requestData(final Message dataRequest, final Class responseType) {
-        return post("/data", dataRequest, responseType);
+    public ResponseEntity request(final Message request, final Class responseType) {
+        return execute("/request", request, responseType);
     }
 
-    public ResponseEntity perform(final Message request) {
-        return post("/action", request, ResponseEntity.class);
+    public ResponseEntity request(final Message request) {
+        return execute("/request", request, String.class);
     }
 
 
-    public ResponseEntity postEvent(final Message event) {
-        return post("/event", event, ResponseEntity.class);
+    public ResponseEntity post(final Message event) {
+        return execute("/event", event, Void.class);
     }
 
-    private ResponseEntity post(String endpoint, Message message, Class responseType) {
+    private ResponseEntity execute(String endpoint, Message message, Class responseType) {
         HttpHeaders headers = convertToHttpHeaders(message.getHeaders());
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         headers.setAccept(List.of(MediaType.APPLICATION_JSON_UTF8));
