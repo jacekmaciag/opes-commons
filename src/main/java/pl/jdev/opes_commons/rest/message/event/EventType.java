@@ -9,7 +9,8 @@ public enum EventType {
     ORDER_UPDATED("order.updated"),
     TRADE_OPEN("trade.open"),
     TRADE_CLOSED("trade.closed"),
-    TRADE_UPDATED("trade.updated");
+    TRADE_UPDATED("trade.updated"),
+    CANDLESTICKS_UPDATED("candlesticks.updated");
 
     private String key;
 

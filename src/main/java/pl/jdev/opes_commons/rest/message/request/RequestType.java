@@ -8,5 +8,6 @@ public enum RequestType {
     CANCEL_ORDER,
     TRADE_DETAILS,
     CLOSE_TRADE,
-    CANDLES
+    CANDLES,
+    PRICING
 }
